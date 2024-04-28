@@ -15,7 +15,7 @@ TASK = ""
 TASK_DONE = True
 CONFIRMATION_SENT = True
 
-modules = []
+modules = {"sg": [], "env": [], "noteseq": []}
 
 def main():
    global TASK, TASK_DONE, modules
@@ -24,10 +24,23 @@ def main():
       if not TASK_DONE:
          if "create sg" in TASK:
             sgName = TASK.split()[2]
-            exec(sgName + " = module.create('oscillator', random.randint(1, 10000), random,randint(1, 10000))")
-            modules.append(sgName)
+            exec(sgName + " = module.create('signalgenerator', random.randint(1, 10000), random.randint(1, 10000))")
+            modules["sg"].append(sgName)
             TASK_DONE = True
-         if "create "
+         if "create env" in TASK:
+            envName = TASK.split()[2]
+            exec(envName + " = module.create('envelope', random.randint(1, 10000), random.randint(1, 10000))")
+            modules["env"].append(envName)
+            TASK_DONE = True
+         if "create noteseq" in TASK:
+            noteseqName = TASK.split()[2]
+            exec(noteseqName + " = module.create('notesequencer', random.randint(1, 10000), random.randint(1, 10000))")
+            modules["noteseq"].append(noteseqName)
+            TASK_DONE = True
+         if "connect main" in TASK:
+            source = TASK.split()[2]
+            destination = TASK.split()[3]
+
 
 
 def handle_client(conn, addr):
